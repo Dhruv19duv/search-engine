@@ -1,10 +1,20 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/deployed_on-Vercel-000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel">
+  <a href="https://search-engine-rust.vercel.app">
+    <img src="https://img.shields.io/badge/LIVE_DEMO-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
+  </a>
+  <a href="https://github.com/Dhruv19duv/search-engine">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+  </a>
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
   <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="MIT License">
   <br>
-  <strong>Live:</strong> <a href="https://search-engine-rust.vercel.app">search-engine-rust.vercel.app</a>
+  <br>
+  <a href="https://search-engine-rust.vercel.app">
+    <img src="screenshot.png" alt="Search Engine Screenshot" width="700">
+  </a>
+  <br>
+  <br>
+  <p><strong>🔗 Live Demo:</strong> <a href="https://search-engine-rust.vercel.app">search-engine-rust.vercel.app</a></p>
 </div>
 
 <br>

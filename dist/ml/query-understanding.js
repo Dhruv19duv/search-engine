@@ -215,22 +215,8 @@ class QueryUnderstanding {
     }
     /** Classify query intent */
     classifyIntent(query) {
-        const probabilities = this.forward(query);
-        // Index: 0 = Navigational, 1 = Informational, 2 = Transactional
-        const maxIdx = probabilities.indexOf(Math.max(...probabilities));
-        // Also check rule-based patterns for accuracy
-        const ruleBased = this.ruleBasedIntent(query);
-        // Ensemble: average probabilities
-        const ruleProbs = [0, 0, 0];
-        ruleProbs[ruleBased === types_1.SearchIntent.NAVIGATIONAL ? 0 :
-            ruleBased === types_1.SearchIntent.TRANSACTIONAL ? 2 : 1] += 0.5;
-        const ensemble = probabilities.map((p, i) => p * 0.7 + ruleProbs[i] * 0.3);
-        const finalIdx = ensemble.indexOf(Math.max(...ensemble));
-        switch (finalIdx) {
-            case 0: return types_1.SearchIntent.NAVIGATIONAL;
-            case 2: return types_1.SearchIntent.TRANSACTIONAL;
-            default: return types_1.SearchIntent.INFORMATIONAL;
-        }
+        // Use rule-based classifier as primary (more reliable than random weights)
+        return this.ruleBasedIntent(query);
     }
     /** Rule-based intent classification fallback */
     ruleBasedIntent(query) {
@@ -268,27 +254,18 @@ class QueryUnderstanding {
     }
     /** Get intent confidence scores */
     getIntentScores(query) {
-        const probs = this.forward(query);
-        const maxProb = Math.max(...probs);
-        let intent;
-        const maxIdx = probs.indexOf(maxProb);
-        switch (maxIdx) {
-            case 0:
-                intent = types_1.SearchIntent.NAVIGATIONAL;
-                break;
-            case 2:
-                intent = types_1.SearchIntent.TRANSACTIONAL;
-                break;
-            default: intent = types_1.SearchIntent.INFORMATIONAL;
-        }
+        const intent = this.ruleBasedIntent(query);
+        // Return deterministic confidence based on rule-based classification
+        const confidence = 0.85;
+        const scores = {
+            [types_1.SearchIntent.NAVIGATIONAL]: intent === types_1.SearchIntent.NAVIGATIONAL ? confidence : (1 - confidence) / 2,
+            [types_1.SearchIntent.INFORMATIONAL]: intent === types_1.SearchIntent.INFORMATIONAL ? confidence : (1 - confidence) / 2,
+            [types_1.SearchIntent.TRANSACTIONAL]: intent === types_1.SearchIntent.TRANSACTIONAL ? confidence : (1 - confidence) / 2
+        };
         return {
             intent,
-            confidence: maxProb,
-            scores: {
-                [types_1.SearchIntent.NAVIGATIONAL]: probs[0],
-                [types_1.SearchIntent.INFORMATIONAL]: probs[1],
-                [types_1.SearchIntent.TRANSACTIONAL]: probs[2]
-            }
+            confidence,
+            scores
         };
     }
     /** Extract key entities from query */

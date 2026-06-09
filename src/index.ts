@@ -409,7 +409,7 @@ export class SearchEngine {
 }
 
 // Run if executed directly
-if (require.main === module || process.env.NODE_ENV === 'production') {
+if ((require.main === module || process.env.NODE_ENV === 'production') && !process.env.VERCEL) {
   const engine = new SearchEngine();
   
   const port = parseInt(process.env.PORT || '3000', 10);

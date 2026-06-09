@@ -121,30 +121,35 @@ class SkipListPostingList {
         let docA = a.nextGEQ(0);
         let docB = b.nextGEQ(0);
         while (docA !== null || docB !== null) {
-            if (docA === null) {
+            if (docA === null && docB !== null) {
                 result.insert(docB);
                 docB = b.nextGEQ(docB.docId + 1);
             }
-            else if (docB === null) {
+            else if (docB === null && docA !== null) {
                 result.insert(docA);
                 docA = a.nextGEQ(docA.docId + 1);
             }
-            else if (docA.docId === docB.docId) {
-                result.insert({
-                    docId: docA.docId,
-                    termFrequency: docA.termFrequency + docB.termFrequency,
-                    positions: [...docA.positions, ...docB.positions]
-                });
-                docA = a.nextGEQ(docA.docId + 1);
-                docB = b.nextGEQ(docB.docId + 1);
-            }
-            else if (docA.docId < docB.docId) {
-                result.insert(docA);
-                docA = a.nextGEQ(docA.docId + 1);
+            else if (docA !== null && docB !== null) {
+                if (docA.docId === docB.docId) {
+                    result.insert({
+                        docId: docA.docId,
+                        termFrequency: docA.termFrequency + docB.termFrequency,
+                        positions: [...docA.positions, ...docB.positions]
+                    });
+                    docA = a.nextGEQ(docA.docId + 1);
+                    docB = b.nextGEQ(docB.docId + 1);
+                }
+                else if (docA.docId < docB.docId) {
+                    result.insert(docA);
+                    docA = a.nextGEQ(docA.docId + 1);
+                }
+                else {
+                    result.insert(docB);
+                    docB = b.nextGEQ(docB.docId + 1);
+                }
             }
             else {
-                result.insert(docB);
-                docB = b.nextGEQ(docB.docId + 1);
+                break;
             }
         }
         return result;
@@ -155,7 +160,11 @@ class SkipListPostingList {
         let docA = a.nextGEQ(0);
         let docB = b.nextGEQ(0);
         while (docA !== null) {
-            if (docB === null || docA.docId < docB.docId) {
+            if (docB === null) {
+                result.insert(docA);
+                docA = a.nextGEQ(docA.docId + 1);
+            }
+            else if (docA.docId < docB.docId) {
                 result.insert(docA);
                 docA = a.nextGEQ(docA.docId + 1);
             }

@@ -1,3 +1,14 @@
+<div align="center">
+  <img src="https://img.shields.io/badge/deployed_on-Vercel-000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="MIT License">
+  <br>
+  <strong>Live:</strong> <a href="https://search-engine-rust.vercel.app">search-engine-rust.vercel.app</a>
+</div>
+
+<br>
+
 # Search Engine
 
 A full-scale search engine implementation in TypeScript/Node.js featuring a web crawler, inverted index, BM25 ranking, ML-powered semantic search, semantic drift detection, and a high-performance query server.

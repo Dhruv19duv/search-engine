@@ -1,7 +1,15 @@
 {
   "version": 2,
-  "buildCommand": "npx tsc",
-  "outputDirectory": "dist",
-  "installCommand": "npm install",
-  "framework": null
+  "builds": [
+    {
+      "src": "api/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api/index.ts"
+    }
+  ]
 }

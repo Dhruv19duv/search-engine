@@ -47,7 +47,7 @@ class SpamFilter {
                 threshold: 0,
                 left: null,
                 right: null,
-                score: Math.random() * 2 - 1, // -1 to 1
+                score: Math.random() * 0.5 - 0.8, // biased toward not-spam (-0.8 to -0.3)
                 isLeaf: true
             };
         }
